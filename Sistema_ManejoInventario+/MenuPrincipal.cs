@@ -41,8 +41,8 @@ namespace Sistema_ManejoInventario_
         {
             AbrirFormHijo(new VentanaMenuPrincipal());
             if (conexion.Codigo != 1) {
-                //BtnVentas.Visible = false;
                 BtnReporte.Visible = false;
+                BtnVentas.Visible = false;
                 panel6.Visible = false;
                 panel8.Visible = false;
             }

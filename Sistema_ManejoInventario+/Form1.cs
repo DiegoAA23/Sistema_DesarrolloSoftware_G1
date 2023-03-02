@@ -51,8 +51,6 @@ namespace Sistema_ManejoInventario_
                     menu.Show();
                     this.Hide();
                 }
-                
-                
             }
             else
             {
