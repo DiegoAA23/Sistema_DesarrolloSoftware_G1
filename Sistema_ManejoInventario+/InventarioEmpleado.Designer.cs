@@ -41,7 +41,7 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(53, 165);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(970, 191);
+            this.dataGridView1.Size = new System.Drawing.Size(970, 239);
             this.dataGridView1.TabIndex = 5;
             // 
             // textBox1
@@ -73,7 +73,7 @@
             this.button1.ForeColor = System.Drawing.Color.Black;
             this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(460, 362);
+            this.button1.Location = new System.Drawing.Point(456, 425);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(187, 41);
             this.button1.TabIndex = 11;
@@ -84,13 +84,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1363, 411);
+            this.ClientSize = new System.Drawing.Size(1086, 498);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "InventarioEmpleado";
             this.Text = "InventarioEmpleado";
+            this.Load += new System.EventHandler(this.InventarioEmpleado_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

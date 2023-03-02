@@ -9,9 +9,12 @@ namespace Sistema_ManejoInventario_
 {
     public class Conexion
     {
-        string cadena = "Data source=LAPTOP-3KI7LCMK;Initial Catalog=RaxelDB;Integrated Security=True";
+        string cadena = "Data source=DESKTOP-IMNH1JC;Initial Catalog=RaxelDB;Integrated Security=True";
         public SqlConnection conectardb = new SqlConnection();
+        
+        private static int codigo; //Para comprobar nivel de usuario
 
+        public int Codigo { get => codigo; set => codigo = value; }
         public Conexion()
         {
             conectardb.ConnectionString = cadena; //especificacion del origen de datos.

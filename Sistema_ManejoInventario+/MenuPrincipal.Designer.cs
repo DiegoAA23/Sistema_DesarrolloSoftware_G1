@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MenuPrincipal));
             this.BarraTop = new System.Windows.Forms.Panel();
+            this.btnNormal = new System.Windows.Forms.PictureBox();
             this.BtnMinimizar = new System.Windows.Forms.PictureBox();
             this.BtnMaximizar = new System.Windows.Forms.PictureBox();
             this.BtnCerrar = new System.Windows.Forms.PictureBox();
@@ -57,9 +58,9 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.horafecha = new System.Windows.Forms.Timer(this.components);
-            this.btnNormal = new System.Windows.Forms.PictureBox();
             this.PanelCentro = new System.Windows.Forms.Panel();
             this.BarraTop.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnNormal)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BtnMinimizar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BtnMaximizar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BtnCerrar)).BeginInit();
@@ -74,7 +75,6 @@
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btnNormal)).BeginInit();
             this.SuspendLayout();
             // 
             // BarraTop
@@ -89,7 +89,20 @@
             this.BarraTop.Name = "BarraTop";
             this.BarraTop.Size = new System.Drawing.Size(1300, 31);
             this.BarraTop.TabIndex = 0;
+            this.BarraTop.Paint += new System.Windows.Forms.PaintEventHandler(this.BarraTop_Paint);
             this.BarraTop.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BarraTop_MouseDown);
+            // 
+            // btnNormal
+            // 
+            this.btnNormal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnNormal.Image = ((System.Drawing.Image)(resources.GetObject("btnNormal.Image")));
+            this.btnNormal.Location = new System.Drawing.Point(1223, 3);
+            this.btnNormal.Name = "btnNormal";
+            this.btnNormal.Size = new System.Drawing.Size(25, 25);
+            this.btnNormal.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnNormal.TabIndex = 3;
+            this.btnNormal.TabStop = false;
+            this.btnNormal.Click += new System.EventHandler(this.btnNormal_Click);
             // 
             // BtnMinimizar
             // 
@@ -172,13 +185,14 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Orange;
-            this.label1.Location = new System.Drawing.Point(26, 147);
+            this.label1.Location = new System.Drawing.Point(22, 146);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(166, 25);
+            this.label1.Size = new System.Drawing.Size(177, 20);
             this.label1.TabIndex = 5;
-            this.label1.Text = "Raxel Baterias";
+            this.label1.Text = "Raxel Baterias y Más";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // BtnMenuPrincipal
             // 
@@ -256,6 +270,7 @@
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(5, 59);
             this.panel8.TabIndex = 8;
+            this.panel8.Paint += new System.Windows.Forms.PaintEventHandler(this.panel8_Paint);
             // 
             // panel9
             // 
@@ -292,6 +307,7 @@
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(5, 59);
             this.panel6.TabIndex = 6;
+            this.panel6.Paint += new System.Windows.Forms.PaintEventHandler(this.panel6_Paint);
             // 
             // panel7
             // 
@@ -396,18 +412,6 @@
             this.horafecha.Enabled = true;
             this.horafecha.Tick += new System.EventHandler(this.horafecha_Tick);
             // 
-            // btnNormal
-            // 
-            this.btnNormal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnNormal.Image = ((System.Drawing.Image)(resources.GetObject("btnNormal.Image")));
-            this.btnNormal.Location = new System.Drawing.Point(1223, 3);
-            this.btnNormal.Name = "btnNormal";
-            this.btnNormal.Size = new System.Drawing.Size(25, 25);
-            this.btnNormal.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnNormal.TabIndex = 3;
-            this.btnNormal.TabStop = false;
-            this.btnNormal.Click += new System.EventHandler(this.btnNormal_Click);
-            // 
             // PanelCentro
             // 
             this.PanelCentro.BackColor = System.Drawing.SystemColors.ActiveCaption;
@@ -416,6 +420,7 @@
             this.PanelCentro.Name = "PanelCentro";
             this.PanelCentro.Size = new System.Drawing.Size(1080, 619);
             this.PanelCentro.TabIndex = 2;
+            this.PanelCentro.Paint += new System.Windows.Forms.PaintEventHandler(this.PanelCentro_Paint);
             // 
             // MenuPrincipal
             // 
@@ -433,6 +438,7 @@
             this.Load += new System.EventHandler(this.MenuPrincipal_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MenuPrincipal_MouseDown);
             this.BarraTop.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.btnNormal)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BtnMinimizar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BtnMaximizar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BtnCerrar)).EndInit();
@@ -448,7 +454,6 @@
             this.panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.btnNormal)).EndInit();
             this.ResumeLayout(false);
 
         }

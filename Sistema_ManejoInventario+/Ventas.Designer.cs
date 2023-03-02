@@ -145,7 +145,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Menu;
-            this.ClientSize = new System.Drawing.Size(1232, 450);
+            this.ClientSize = new System.Drawing.Size(1075, 452);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button7);
@@ -156,6 +156,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Ventas";
             this.Text = "Ventas";
+            this.Load += new System.EventHandler(this.Ventas_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

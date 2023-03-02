@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Runtime.Remoting.Contexts;
 
 namespace Sistema_ManejoInventario_
 {
@@ -24,23 +26,43 @@ namespace Sistema_ManejoInventario_
         {
             conexion.abrir();
             string consulta = "select * from Usuarios where Nombre='" + txtUsuario.Text + "'and Contrasena='" + TxtContraseña.Text + "'";
-            SqlCommand comando = new SqlCommand(consulta,conexion.conectardb);
+            SqlCommand comando = new SqlCommand(consulta, conexion.conectardb);
             SqlDataReader lector;
             lector = comando.ExecuteReader();
+
             if (lector.HasRows == true)
             {
-                MenuPrincipal menu = new MenuPrincipal();
-                menu.Show();
+                conexion.cerrar();
+                conexion.abrir();
+                cmd = new SqlCommand(consulta, conexion.conectardb);
+                SqlDataAdapter user = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+
+                user.Fill(dt);
+
+                if (dt.Rows.Count == 1)
+                {
+                    if (dt.Rows[0][0].ToString() == "1")
+                    {
+                        conexion.Codigo = 1;
+                    }
+
+                    MenuPrincipal menu = new MenuPrincipal();
+                    menu.Show();
+                    this.Hide();
+                }
+                
+                
             }
             else
             {
-                MessageBox.Show("Usuario o contraseña incorrecto.");
-                txtUsuario.Text = "";
-                TxtContraseña.Text = "";
+                    MessageBox.Show("Usuario o contraseña incorrecto.");
+                    txtUsuario.Text = "";
+                    TxtContraseña.Text = "";
             }
             conexion.cerrar();
-            
         }
+
 
         private void BtnCerrar_Click(object sender, EventArgs e)
         {

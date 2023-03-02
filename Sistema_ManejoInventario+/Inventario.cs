@@ -16,5 +16,10 @@ namespace Sistema_ManejoInventario_
         {
             InitializeComponent();
         }
+
+        private void Inventario_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

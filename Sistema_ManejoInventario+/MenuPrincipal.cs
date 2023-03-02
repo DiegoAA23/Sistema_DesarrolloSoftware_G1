@@ -8,11 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Data.SqlClient;
 
 namespace Sistema_ManejoInventario_
 {
     public partial class MenuPrincipal : Form
     {
+        Conexion conexion = new Conexion();
+        SqlCommand cmd;
         public MenuPrincipal()
         {
             InitializeComponent();
@@ -36,7 +39,14 @@ namespace Sistema_ManejoInventario_
 
         private void MenuPrincipal_Load(object sender, EventArgs e)
         {
-
+            AbrirFormHijo(new VentanaMenuPrincipal());
+            if (conexion.Codigo != 1) {
+                //BtnVentas.Visible = false;
+                BtnReporte.Visible = false;
+                panel6.Visible = false;
+                panel8.Visible = false;
+            }
+            
         }
 
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
@@ -77,7 +87,15 @@ namespace Sistema_ManejoInventario_
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            AbrirFormHijo(new Inventario());
+            if (conexion.Codigo == 1) {
+                AbrirFormHijo(new Inventario());
+            }
+            else
+            {
+                AbrirFormHijo(new InventarioEmpleado());
+            }
+            
+           
 
         }
 
@@ -99,15 +117,11 @@ namespace Sistema_ManejoInventario_
         private void BtnMenuPrincipal_Click(object sender, EventArgs e)
         {
             AbrirFormHijo(new VentanaMenuPrincipal());
-            
-
-
         }
 
         private void horafecha_Tick(object sender, EventArgs e)
         {
-          /*  lblHora.Text = DateTime.Now.ToString("hh:mm:ss");
-            lblFecha.Text = DateTime.Now.ToLongDateString();*/
+          
         }
 
         private void lblHora_Click(object sender, EventArgs e)
@@ -132,6 +146,31 @@ namespace Sistema_ManejoInventario_
         private void BtnMinimizar_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void BarraTop_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void PanelCentro_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panel8_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panel6_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
