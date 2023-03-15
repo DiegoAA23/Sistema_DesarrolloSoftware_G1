@@ -58,6 +58,12 @@
     <Compile Include="CrearReporte.Designer.cs">
       <DependentUpon>CrearReporte.cs</DependentUpon>
     </Compile>
+    <Compile Include="DetalleFactura.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DetalleFactura.Designer.cs">
+      <DependentUpon>DetalleFactura.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,6 +105,9 @@
     <EmbeddedResource Include="CrearReporte.resx">
       <DependentUpon>CrearReporte.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DetalleFactura.resx">
+      <DependentUpon>DetalleFactura.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -139,6 +148,36 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cerrar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\seo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Boton Eliminar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cerrar1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\boton agregar al carrito.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Boton Actualizar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Boton Menu principal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cerrar2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Regresar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\13964.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

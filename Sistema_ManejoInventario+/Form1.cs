@@ -57,6 +57,7 @@ namespace Sistema_ManejoInventario_
                     MessageBox.Show("Usuario o contraseña incorrecto.");
                     txtUsuario.Text = "";
                     TxtContraseña.Text = "";
+                    txtUsuario.Focus();
             }
             conexion.cerrar();
         }
