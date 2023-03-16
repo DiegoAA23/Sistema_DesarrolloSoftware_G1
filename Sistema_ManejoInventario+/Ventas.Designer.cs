@@ -30,7 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ventas));
             this.button3 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.dgv_Ventas = new System.Windows.Forms.DataGridView();
             this.txtBusquedaV = new System.Windows.Forms.TextBox();
@@ -38,6 +37,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.btn_limpiar = new System.Windows.Forms.Button();
+            this.lblfact = new System.Windows.Forms.Label();
+            this.lblultima = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Ventas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -53,33 +54,13 @@
             this.button3.ForeColor = System.Drawing.Color.Black;
             this.button3.Image = ((System.Drawing.Image)(resources.GetObject("button3.Image")));
             this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button3.Location = new System.Drawing.Point(269, 466);
+            this.button3.Location = new System.Drawing.Point(366, 483);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(187, 41);
             this.button3.TabIndex = 8;
             this.button3.Text = "Agregar";
             this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // button5
-            // 
-            this.button5.BackColor = System.Drawing.Color.Silver;
-            this.button5.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button5.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(55)))));
-            this.button5.FlatAppearance.BorderSize = 0;
-            this.button5.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.ForeColor = System.Drawing.Color.Black;
-            this.button5.Image = ((System.Drawing.Image)(resources.GetObject("button5.Image")));
-            this.button5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button5.Location = new System.Drawing.Point(489, 466);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(187, 41);
-            this.button5.TabIndex = 19;
-            this.button5.Text = "Actualizar";
-            this.button5.UseVisualStyleBackColor = false;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // button7
             // 
@@ -93,7 +74,7 @@
             this.button7.ForeColor = System.Drawing.Color.Black;
             this.button7.Image = ((System.Drawing.Image)(resources.GetObject("button7.Image")));
             this.button7.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button7.Location = new System.Drawing.Point(53, 466);
+            this.button7.Location = new System.Drawing.Point(150, 483);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(187, 41);
             this.button7.TabIndex = 17;
@@ -109,7 +90,7 @@
             this.dgv_Ventas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_Ventas.Location = new System.Drawing.Point(53, 153);
             this.dgv_Ventas.Name = "dgv_Ventas";
-            this.dgv_Ventas.Size = new System.Drawing.Size(970, 273);
+            this.dgv_Ventas.Size = new System.Drawing.Size(970, 292);
             this.dgv_Ventas.TabIndex = 16;
             this.dgv_Ventas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_Ventas_CellClick);
             this.dgv_Ventas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
@@ -133,7 +114,7 @@
             this.button2.ForeColor = System.Drawing.Color.Black;
             this.button2.Image = ((System.Drawing.Image)(resources.GetObject("button2.Image")));
             this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.Location = new System.Drawing.Point(706, 466);
+            this.button2.Location = new System.Drawing.Point(586, 483);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(187, 41);
             this.button2.TabIndex = 20;
@@ -174,7 +155,7 @@
             this.btn_limpiar.ForeColor = System.Drawing.Color.Black;
             this.btn_limpiar.Image = global::Sistema_ManejoInventario_.Properties.Resources.Boton_Eliminar;
             this.btn_limpiar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_limpiar.Location = new System.Drawing.Point(922, 466);
+            this.btn_limpiar.Location = new System.Drawing.Point(802, 483);
             this.btn_limpiar.Name = "btn_limpiar";
             this.btn_limpiar.Size = new System.Drawing.Size(101, 41);
             this.btn_limpiar.TabIndex = 23;
@@ -183,16 +164,37 @@
             this.btn_limpiar.UseVisualStyleBackColor = false;
             this.btn_limpiar.Click += new System.EventHandler(this.button4_Click);
             // 
+            // lblfact
+            // 
+            this.lblfact.AutoSize = true;
+            this.lblfact.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblfact.Location = new System.Drawing.Point(799, 105);
+            this.lblfact.Name = "lblfact";
+            this.lblfact.Size = new System.Drawing.Size(180, 17);
+            this.lblfact.TabIndex = 24;
+            this.lblfact.Text = "Ultima Factura Agregada: ";
+            // 
+            // lblultima
+            // 
+            this.lblultima.AutoSize = true;
+            this.lblultima.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblultima.Location = new System.Drawing.Point(976, 105);
+            this.lblultima.Name = "lblultima";
+            this.lblultima.Size = new System.Drawing.Size(47, 17);
+            this.lblultima.TabIndex = 25;
+            this.lblultima.Text = "label4";
+            // 
             // Ventas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Menu;
             this.ClientSize = new System.Drawing.Size(1075, 561);
+            this.Controls.Add(this.lblultima);
+            this.Controls.Add(this.lblfact);
             this.Controls.Add(this.btn_limpiar);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.button5);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.dgv_Ventas);
             this.Controls.Add(this.txtBusquedaV);
@@ -210,7 +212,6 @@
 
         #endregion
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.DataGridView dgv_Ventas;
         private System.Windows.Forms.TextBox txtBusquedaV;
@@ -218,5 +219,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btn_limpiar;
+        private System.Windows.Forms.Label lblfact;
+        private System.Windows.Forms.Label lblultima;
     }
 }

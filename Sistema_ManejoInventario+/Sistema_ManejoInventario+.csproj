@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clear.cs" />
     <Compile Include="Conexion.cs" />
     <Compile Include="CrearReporte.cs">
       <SubType>Form</SubType>
