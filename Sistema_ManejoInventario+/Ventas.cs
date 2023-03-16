@@ -18,6 +18,7 @@ namespace Sistema_ManejoInventario_
         Conexion conexion = new Conexion();
         SqlDataAdapter data_adapter;
         DataTable tabla_ventas;
+        SqlCommand cmd;
         public Ventas()
         {
             InitializeComponent();
@@ -26,6 +27,8 @@ namespace Sistema_ManejoInventario_
         private void Ventas_Load(object sender, EventArgs e)
         {
             dgv_Ventas.DataSource = llenarVentas();
+            lblfact.Hide();
+            lblultima.Hide();  
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -65,6 +68,8 @@ namespace Sistema_ManejoInventario_
             }
             else
             {
+                button2.Enabled = false;
+                button3.Enabled = false;
                 conexion.abrir();
                 String codigov = txtBusquedaV.Text;
                 String consulta = "Select * from Factura_Detalle Where Factura = " + codigov;
@@ -87,13 +92,37 @@ namespace Sistema_ManejoInventario_
             txtBusquedaV.Clear();
             dgv_Ventas.DataSource = llenarVentas();
             txtBusquedaV.Enabled = true;
+            button2.Enabled = true;
+            button3.Enabled = true;
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            //MessageBox.Show("No ha ingresado datos sobre la factura", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             DetalleFactura df = new DetalleFactura();
             df.Show();
+            df.FormClosing += new FormClosingEventHandler(this.DetalleFactura_FormClosing);
+                  
+        }
+        private void DetalleFactura_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            txtBusquedaV.Clear();
+            dgv_Ventas.DataSource = llenarVentas();
+            txtBusquedaV.Enabled = true;
+
+            conexion.abrir();
+            int factura = 0;
+            cmd = new SqlCommand("Select * from Factura", conexion.conectardb);
+            string query = ("SELECT MAX(Codigo) AS Codigo FROM Factura");
+            SqlCommand com = new SqlCommand(query, conexion.conectardb);
+            SqlDataReader reg = com.ExecuteReader();
+            while (reg.Read())
+            {
+                factura = Convert.ToInt16((reg["Codigo"]));
+            }
+            conexion.cerrar();
+            lblfact.Show();
+            lblultima.Show();
+            lblultima.Text = factura.ToString();
         }
 
         private void button2_Click(object sender, EventArgs e)

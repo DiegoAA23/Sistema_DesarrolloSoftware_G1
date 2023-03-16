@@ -116,7 +116,6 @@ namespace Sistema_ManejoInventario_
             {
                 conexion.cerrar();
             }
-
         }
 
         private void label3_Click(object sender, EventArgs e)
@@ -223,13 +222,10 @@ namespace Sistema_ManejoInventario_
                     j++;
                     txtCantidad.Clear();
                 }
-
-
-                conexion.cerrar();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al insertar" + ex, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al insertar\n" + ex, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
@@ -258,7 +254,7 @@ namespace Sistema_ManejoInventario_
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al insertar" + ex, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al insertar\n" + ex, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -272,68 +268,121 @@ namespace Sistema_ManejoInventario_
 
             try
             {
-                conexion.abrir();
-                string fecha = dtp_fecha.Value.ToString("yyyy/MM/dd");
-                double subtotal = 0;
-                int filas = dgv_agregados.Rows.Count;
-
-                int c = Convert.ToInt32(dgv_agregados.Rows[0].Cells[2].Value.ToString());
-                double p = Convert.ToDouble(dgv_agregados.Rows[0].Cells[1].Value.ToString());
-                double s = p * c;
-                subtotal += s;
-
-                for (int x = 0; x < filas; x++)
+                if(txtDNI.Text == String.Empty || cbxPago == null || dtp_fecha.Value.ToString() == "")
                 {
-                    //int co = Convert.ToInt32(dgv_agregados.Rows[x].Cells[2].Value.ToString());
-                    //double p = Convert.ToDouble(dgv_agregados.Rows[x].Cells[1].Value.ToString());
-                    //double s = p * c;
-                    //subtotal += s;
+                    MessageBox.Show("No puede ingresar campos vacios","ERROR");
                 }
-
-                double impuesto = subtotal + (subtotal * 0.15);
-                double total = subtotal + impuesto;
-                int cod = 1;
-
-                cmd = new SqlCommand("Insert into Factura Values('" + (cbxPago.SelectedItem as dynamic).Value + "', '" + fecha + "', '" + txtDNI.Text.ToString() + "', '" + txtRTN.Text.ToString() + "', '" + impuesto + "', '" + subtotal + "', '" + total + "', '" + cod + "')", conexion.conectardb);
-                cmd.ExecuteNonQuery();
-                conexion.cerrar();
-
-                // PARA TABLA DETALLE
-                /*int filas = dgv_agregados.Rows.Count;
-                for (int i = 0; i < filas; i++)
+                else if(dgv_agregados.Rows.Count == 1) 
                 {
-                    //
-                    string producto = dgv_agregados.Rows[i].Cells[0].ToString();
-                    string cantidadp = dgv_agregados.Rows[i].Cells[2].ToString();
+                    MessageBox.Show("Debe ingresar productos en la factura", "ERROR");
+                }
+                else
+                {
+                    // PARA TABLA FACTURA
                     conexion.abrir();
-                    cmd = new SqlCommand("Insert into Detalle (Producto_Codigo, Cantidad) Values('" + producto + "', '" + cantidadp + "')", conexion.conectardb);
+                    string fecha = dtp_fecha.Value.ToString("yyyy/MM/dd");
+                    double subtotal = 0;
+                    int filas = dgv_agregados.Rows.Count;
+                    int c = 0;
+                    double p = 0;
+                    double s = 0;
+
+                    for (int x = 0; x < filas; x++)
+                    {
+                        if (dgv_agregados.Rows[x].Cells[1].Value != null && dgv_agregados.Rows[x].Cells[2].Value != null)
+                        {
+                            c = Convert.ToInt32(dgv_agregados.Rows[x].Cells[2].Value.ToString());
+                            p = Convert.ToDouble(dgv_agregados.Rows[x].Cells[1].Value.ToString());
+                            s = p * c;
+                            subtotal += s;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+
+                    double impuesto = subtotal * 0.15;
+                    double total = subtotal + impuesto;
+                    int cod = 1;
+
+                    cmd = new SqlCommand("Insert into Factura Values('" + (cbxPago.SelectedItem as dynamic).Value + "', '" + fecha + "', '" + txtDNI.Text.ToString() + "', '" + txtRTN.Text.ToString() + "', '" + impuesto + "', '" + subtotal + "', '" + total + "', '" + cod + "')", conexion.conectardb);
                     cmd.ExecuteNonQuery();
                     conexion.cerrar();
-                    conexion.abrir();
-                }*/
 
-                MessageBox.Show("Datos ingresados con exito", "COMPLETADO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    int factura = 0;
+
+                    conexion.abrir();
+                    cmd = new SqlCommand("Select * from Factura", conexion.conectardb);
+                    string query = ("SELECT MAX(Codigo) AS Codigo FROM Factura");
+                    SqlCommand com = new SqlCommand(query, conexion.conectardb);
+                    SqlDataReader reg = com.ExecuteReader();
+                    while (reg.Read())
+                    {
+                        factura = Convert.ToInt16((reg["Codigo"]));
+                    }
+
+                    conexion.cerrar();
+
+                    // PARA TABLA DETALLE
+                    string producto = "";
+                    int cantidadp = 0;
+                    int productocodigo = 0;
+
+                    for (int i = 0; i < filas; i++)
+                    {
+
+                        if (dgv_agregados.Rows[i].Cells[0].Value != null && dgv_agregados.Rows[i].Cells[2].Value != null)
+                        {
+                            conexion.abrir();
+                            producto = dgv_agregados.Rows[i].Cells[0].Value.ToString();
+                            cantidadp = Convert.ToInt32(dgv_agregados.Rows[i].Cells[2].Value.ToString());
+                            cmd = new SqlCommand("Select * from Productos", conexion.conectardb);
+                            string consulta = ("Select * from Productos Where Nombre = '" + producto + "'");
+                            SqlCommand comando = new SqlCommand(consulta, conexion.conectardb);
+                            SqlDataReader registro = comando.ExecuteReader();
+                            while (registro.Read())
+                            {
+                                productocodigo = Convert.ToInt16((registro["Codigo"]));
+                            }
+                            conexion.cerrar();
+
+                            conexion.abrir();
+                            cmd = new SqlCommand("Insert into Detalle Values('" + factura + "', '" + productocodigo + "', '" + cantidadp + "')", conexion.conectardb);
+                            cmd.ExecuteNonQuery();
+                            conexion.cerrar();
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+
+                    MessageBox.Show("Datos ingresados con exito", "COMPLETADO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al insertar tabla" + ex, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al insertar datos\n" + ex, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
             this.Close();
-            Ventas v = new Ventas();
- 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (dgv_agregados.SelectedRows.Count > 0)
+            {
+                dgv_agregados.Rows.RemoveAt(dgv_agregados.SelectedRows[0].Index);
+            }
+            else
+            {
+                MessageBox.Show("Seleccionar un codigo para eliminar", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
-
-/*cmd = new SqlCommand("Select * from Productos", conexion.conectardb);
-
-string consulta = "SELECT * from Productos Where Codigo = '" + (cbxProductos.SelectedItem as dynamic).Value + "'";
-SqlCommand comando = new SqlCommand(consulta, conexion.conectardb);
-SqlDataReader serv = comando.ExecuteReader();
-while (serv.Read())
-{    
-}*/
