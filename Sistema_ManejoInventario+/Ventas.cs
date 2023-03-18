@@ -130,11 +130,6 @@ namespace Sistema_ManejoInventario_
             
         }
 
-        private void button5_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("No ha ingresado datos sobre la factura", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
-
         private void button2_Click_1(object sender, EventArgs e)
         {
             conexion.abrir();
@@ -147,6 +142,7 @@ namespace Sistema_ManejoInventario_
 
                     if(d == DialogResult.Yes)
                     {
+                        // PARA BORRAR DE TABLA DETALLE
                         string borrar = "Delete From Detalle Where Factura_Codigo = @c;";
                         
                         using (SqlCommand command = new SqlCommand(borrar, conexion.conectardb))
@@ -155,6 +151,7 @@ namespace Sistema_ManejoInventario_
                             command.ExecuteNonQuery();
                         }
 
+                        // PARA BORRAR DE TABLA FACTURA
                         string borrar2 = "Delete From Factura Where Codigo = @c;";
                         using (SqlCommand command = new SqlCommand(borrar2, conexion.conectardb))
                         {

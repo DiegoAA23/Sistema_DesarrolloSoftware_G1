@@ -22,7 +22,8 @@ namespace Sistema_ManejoInventario_
         Conexion conexion = new Conexion();
         SqlDataAdapter data_adapter;
         DataTable tabla_reportes;
-
+        ReportesAgregar ra = new ReportesAgregar();
+        Conexion cone = new Conexion();
         private void button2_Click(object sender, EventArgs e)
         {
             if (dataGridView1.SelectedRows.Count > 0)
@@ -55,6 +56,45 @@ namespace Sistema_ManejoInventario_
             conexion.cerrar();
 
             return tabla_reportes;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                if(textBox1.Text == String.Empty) {
+
+                    MessageBox.Show("Ingrese un codigo para buscar", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    conexion.abrir();
+                    int cod = Convert.ToInt16(textBox1.Text);
+                    String consulta = "Select * from Reportes where Numero = " + cod;
+                    data_adapter = new SqlDataAdapter(consulta, conexion.conectardb);
+                    tabla_reportes = new DataTable();
+                    data_adapter.Fill(tabla_reportes);
+                    dataGridView1.DataSource = tabla_reportes;
+                    conexion.cerrar();
+                }     
+            }
+            catch
+            {
+                MessageBox.Show("Error al buscar", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+          
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            textBox1.Clear();
+            dataGridView1.DataSource = llenarReportes();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            ra.Show();
         }
     }
 }
