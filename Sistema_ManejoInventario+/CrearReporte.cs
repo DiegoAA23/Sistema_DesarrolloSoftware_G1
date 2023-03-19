@@ -22,7 +22,6 @@ namespace Sistema_ManejoInventario_
         Conexion conexion = new Conexion();
         SqlDataAdapter data_adapter;
         DataTable tabla_reportes;
-        ReportesAgregar ra = new ReportesAgregar();
         Conexion cone = new Conexion();
         private void button2_Click(object sender, EventArgs e)
         {
@@ -94,6 +93,7 @@ namespace Sistema_ManejoInventario_
 
         private void button3_Click(object sender, EventArgs e)
         {
+            ReportesAgregar ra = new ReportesAgregar();
             ra.Show();
         }
     }
