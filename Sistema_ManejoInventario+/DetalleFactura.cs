@@ -270,11 +270,11 @@ namespace Sistema_ManejoInventario_
             {
                 if(txtDNI.Text == String.Empty || cbxPago == null || dtp_fecha.Value.ToString() == "")
                 {
-                    MessageBox.Show("No puede ingresar campos vacios","ERROR");
+                    MessageBox.Show("No puede ingresar campos vacios","ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else if(dgv_agregados.Rows.Count == 1) 
                 {
-                    MessageBox.Show("Debe ingresar productos en la factura", "ERROR");
+                    MessageBox.Show("Debe ingresar productos en la factura", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {

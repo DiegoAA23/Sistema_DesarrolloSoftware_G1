@@ -97,5 +97,12 @@ namespace Sistema_ManejoInventario_
         {
 
         }
+
+        private void btn_limpiar_Click(object sender, EventArgs e)
+        {
+            dgv_inventarios.DataSource = Llenar_Inventario();
+            txt_busqueda.Clear();
+            cbo_filtro.SelectedIndex = -1;
+        }
     }
 }
