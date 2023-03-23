@@ -332,7 +332,7 @@ namespace Sistema_ManejoInventario_
                     for (int i = 0; i < filas; i++)
                     {
 
-                        if (dgv_agregados.Rows[i].Cells[0].Value != null && dgv_agregados.Rows[i].Cells[2].Value != null)
+                        if(dgv_agregados.Rows[i].Cells[0].Value != null && dgv_agregados.Rows[i].Cells[2].Value != null)
                         {
                             conexion.abrir();
                             producto = dgv_agregados.Rows[i].Cells[0].Value.ToString();
@@ -383,6 +383,11 @@ namespace Sistema_ManejoInventario_
             {
                 MessageBox.Show("Seleccionar un codigo para eliminar", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void txtnumerof_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

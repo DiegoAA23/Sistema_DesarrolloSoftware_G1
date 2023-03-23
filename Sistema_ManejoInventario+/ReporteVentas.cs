@@ -29,6 +29,18 @@ namespace Sistema_ManejoInventario_
         [DllImportAttribute("user32.dll")]
         public static extern bool ReleaseCapture();
 
+        private const int SombraForm = 0x20000;
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ClassStyle |= SombraForm;
+                return cp;
+            }
+        }
+
         private void ReporteVentas_Load(object sender, EventArgs e)
         {
             conexion.abrir();
@@ -67,6 +79,48 @@ namespace Sistema_ManejoInventario_
             clsReporteVentas rv = new clsReporteVentas();
             rv.FiltroReporteVentas(dataGridView1, fecha);
             conexion.cerrar();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            dataGridView1.SelectAll();
+            DataObject copydata = dataGridView1.GetClipboardContent();
+            if (copydata != null) Clipboard.SetDataObject(copydata);
+            Microsoft.Office.Interop.Excel.Application xlapp = new Microsoft.Office.Interop.Excel.Application();
+            Microsoft.Office.Interop.Excel.Workbook xlWbook;
+            Microsoft.Office.Interop.Excel.Worksheet xlsheet;
+            object miseddata = System.Reflection.Missing.Value;
+            xlWbook = xlapp.Workbooks.Add(miseddata);
+
+            xlsheet = (Microsoft.Office.Interop.Excel.Worksheet)xlWbook.Worksheets.get_Item(1);
+            Microsoft.Office.Interop.Excel.Range rango = (Microsoft.Office.Interop.Excel.Range)xlsheet.Cells[2, 1];
+            rango.Select();
+
+            xlsheet.PasteSpecial(rango, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, true);
+
+            for (int i = 1; i < dataGridView1.Columns.Count + 1; i++)
+            {
+                xlapp.Cells[1, i+1] = dataGridView1.Columns[i - 1].HeaderText;
+                xlapp.Cells[1, i+1].Font.Bold = true;
+                xlapp.Cells[1, i+1].HorizontalAlignment = HorizontalAlignment.Center;
+            }
+
+            xlapp.Columns.AutoFit();
+            xlapp.Visible = true;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btn_limpiar_Click(object sender, EventArgs e)
+        {
+            conexion.abrir();
+            clsReporteVentas rv = new clsReporteVentas();
+            rv.MostrarInventarioVentas(dataGridView1);
+            conexion.cerrar();
+            dtpFiltro.Value = DateTime.Now;
         }
     }
 }

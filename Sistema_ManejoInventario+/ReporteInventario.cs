@@ -33,6 +33,18 @@ namespace Sistema_ManejoInventario_
         [DllImportAttribute("user32.dll")]
         public static extern bool ReleaseCapture();
 
+        private const int SombraForm = 0x20000;
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ClassStyle |= SombraForm;
+                return cp;
+            }
+        }
+
         private void ReporteInventario_Load(object sender, EventArgs e)
         {
             cone.abrir();
@@ -47,14 +59,14 @@ namespace Sistema_ManejoInventario_
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            ri.Buscar(dataGridView1, this.textBox1.Text.Trim());
+            ri.Buscar(dataGridView1, this.txtBusq.Text.Trim());
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             try
             {
-                if (textBox1.Text == String.Empty)
+                if (txtBusq.Text == String.Empty)
                 {
 
                     MessageBox.Show("Ingrese un codigo para buscar", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -62,7 +74,7 @@ namespace Sistema_ManejoInventario_
                 else
                 {
                     conexion.abrir();
-                    int cod = Convert.ToInt16(textBox1.Text);
+                    int cod = Convert.ToInt16(txtBusq.Text);
                     String consulta = "Select * from Productos where Codigo = " + cod;
                     data_adapter = new SqlDataAdapter(consulta, conexion.conectardb);
                     tabla_reportes = new DataTable();
@@ -103,6 +115,48 @@ namespace Sistema_ManejoInventario_
         {
             ReleaseCapture();
             SendMessage(this.Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            dataGridView1.SelectAll();
+            DataObject copydata = dataGridView1.GetClipboardContent();
+            if (copydata != null) Clipboard.SetDataObject(copydata);
+            Microsoft.Office.Interop.Excel.Application xlapp = new Microsoft.Office.Interop.Excel.Application();
+            Microsoft.Office.Interop.Excel.Workbook xlWbook;
+            Microsoft.Office.Interop.Excel.Worksheet xlsheet;
+            object miseddata = System.Reflection.Missing.Value;
+            xlWbook = xlapp.Workbooks.Add(miseddata);
+
+            xlsheet = (Microsoft.Office.Interop.Excel.Worksheet)xlWbook.Worksheets.get_Item(1);
+            Microsoft.Office.Interop.Excel.Range rango = (Microsoft.Office.Interop.Excel.Range)xlsheet.Cells[2, 1];
+            rango.Select();
+
+            xlsheet.PasteSpecial(rango, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, true);
+
+            for (int i = 1; i < dataGridView1.Columns.Count + 1; i++)
+            {
+                xlapp.Cells[1, i + 1] = dataGridView1.Columns[i - 1].HeaderText;
+                xlapp.Cells[1, i + 1].Font.Bold = true;
+                xlapp.Cells[1, i + 1].HorizontalAlignment = HorizontalAlignment.Center;
+            }
+
+            xlapp.Columns.AutoFit();
+            xlapp.Visible = true;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btn_limpiar_Click(object sender, EventArgs e)
+        {
+            cone.abrir();
+            ri.MostrarInventario(dataGridView1);
+            cone.cerrar();
+
+            txtBusq.Text = "";
         }
     }
 }

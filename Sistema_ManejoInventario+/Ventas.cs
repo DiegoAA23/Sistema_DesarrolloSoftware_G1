@@ -100,9 +100,9 @@ namespace Sistema_ManejoInventario_
         {
             DetalleFactura df = new DetalleFactura();
             df.Show();
-            df.FormClosing += new FormClosingEventHandler(this.DetalleFactura_FormClosing);
-                  
+            df.FormClosing += new FormClosingEventHandler(this.DetalleFactura_FormClosing);  
         }
+
         private void DetalleFactura_FormClosing(object sender, FormClosingEventArgs e)
         {
             txtBusquedaV.Clear();
