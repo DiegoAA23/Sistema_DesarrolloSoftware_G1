@@ -48,7 +48,7 @@ namespace Sistema_ManejoInventario_
         private DataTable llenarReportes()
         {
             conexion.abrir();
-            String consulta = "Select * from Reportes";
+            String consulta = "SELECT * FROM ReporteInfo";
             data_adapter = new SqlDataAdapter(consulta, conexion.conectardb);
             tabla_reportes = new DataTable();
             data_adapter.Fill(tabla_reportes);

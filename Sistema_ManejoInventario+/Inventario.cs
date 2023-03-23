@@ -158,7 +158,7 @@ namespace Sistema_ManejoInventario_
         private DataTable Llenar_Inventario()
         {
             conexion.abrir(); //apertura de la conexion
-            String consulta = "SELECT Codigo, Nombre, Stock, [Precio de Venta], [Precio de Compra], [Fecha de Compra], [Punto de Reorden], Categoria, Distribuidor FROM Productos where Estado != 0";
+            String consulta = "SELECT * FROM ProductoDetalle";
             data_adapter = new SqlDataAdapter(consulta, conexion.conectardb);
             tabla_inventario = new DataTable();
 
@@ -173,7 +173,7 @@ namespace Sistema_ManejoInventario_
         {
             Console.WriteLine(filtro);
             conexion.abrir(); //apertura de la conexion
-            String consulta = "select * from Productos where " + filtro.ToString(); //consulta con el filtro
+            String consulta = "select * from ProductoDetalle where " + filtro.ToString(); //consulta con el filtro
             data_adapter = new SqlDataAdapter(consulta, conexion.conectardb);
             tabla_inventario = new DataTable();
 
@@ -218,16 +218,25 @@ namespace Sistema_ManejoInventario_
                 string nombre = fila.Cells["Nombre"].Value.ToString();
                 string categoria = fila.Cells["Categoria"].Value.ToString();
                 int stock = Convert.ToInt32(fila.Cells["Stock"].Value);
-
+                conexion.abrir();
+                int cod = 0;
+                String query = ("Select * From Categorias Where Nombre LIKE '%" + categoria + "%'");
+                SqlCommand com = new SqlCommand(query, conexion.conectardb);
+                SqlDataReader reg = com.ExecuteReader();
+                while (reg.Read())
+                {
+                    cod = Convert.ToInt16((reg["Codigo"]));
+                }
+                conexion.cerrar();
                 // Actualizar la fila en la base de datos
                 conexion.abrir();
                 string consulta = "UPDATE Productos SET Nombre=@Nombre, Categoria=@Categoria, Stock=@Stock WHERE Codigo=@Codigo";
                 SqlCommand comando = new SqlCommand(consulta, conexion.conectardb);
                 comando.Parameters.AddWithValue("@Nombre", nombre);
-                comando.Parameters.AddWithValue("@Categoria", categoria);
+                comando.Parameters.AddWithValue("@Categoria", cod);
                 comando.Parameters.AddWithValue("@Stock", stock);
                 comando.Parameters.AddWithValue("@Codigo", codigo);
-                int filas_actualizadas = comando.ExecuteNonQuery();
+                int filas_actualizadas = comando.ExecuteNonQuery(); ;
                 conexion.cerrar();
 
                 if (filas_actualizadas > 0)
@@ -309,7 +318,7 @@ namespace Sistema_ManejoInventario_
                 }
                 else
                 {
-                    MessageBox.Show("No ha ingresado un codigo de factura", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("No ha ingresado un codigo", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)

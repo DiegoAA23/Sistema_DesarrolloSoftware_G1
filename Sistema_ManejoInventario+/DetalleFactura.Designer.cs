@@ -57,8 +57,6 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
-            this.txtnumerof = new System.Windows.Forms.Label();
             this.BarraTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnNormal)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BtnMinimizar)).BeginInit();
@@ -356,26 +354,6 @@
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(22, 64);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(76, 15);
-            this.label6.TabIndex = 41;
-            this.label6.Text = "No. Factura: ";
-            // 
-            // txtnumerof
-            // 
-            this.txtnumerof.AutoSize = true;
-            this.txtnumerof.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtnumerof.Location = new System.Drawing.Point(93, 64);
-            this.txtnumerof.Name = "txtnumerof";
-            this.txtnumerof.Size = new System.Drawing.Size(46, 15);
-            this.txtnumerof.TabIndex = 42;
-            this.txtnumerof.Text = "label10";
-            // 
             // DetalleFactura
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -383,8 +361,6 @@
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1055, 523);
-            this.Controls.Add(this.txtnumerof);
-            this.Controls.Add(this.label6);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.cbxProductos);
@@ -452,7 +428,5 @@
         private System.Windows.Forms.ComboBox cbxProductos;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label txtnumerof;
     }
 }
